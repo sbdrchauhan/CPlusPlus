@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    // one single cin case:
+    // Ex-1
     unsigned int seed;
     int z1, z2, z3;
     cout << "----Random Numbers ------------\n\n";
@@ -22,8 +22,14 @@ int main()
     z2 = rand();
     z3 = rand();
 
-    cout << "\nThree random numbers: "
-        << z1 << "\t" << z2 << "\t" << z3 << endl;
+    cout << "\nThree random numbers: " << z1 << "\t" << z2 << "\t" << z3 << endl;
+
+    // Ex-2
+    double x, y;
+    cout << "Enter two floating-point values: ";
+    cin >> x >> y;      // here both numbers are put turn by turn
+    cout << "Your inputs are: " << x << " and " << y << endl;
+
 
     return 0;
 }

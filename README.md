@@ -59,4 +59,137 @@ cin >> ch;    // reads the first non-white space character
 
 int c = cin.get();    // without argument reads int value of character
 ```
-**Reading a line** >> can be used to read only one word into a string. If you need to read a whole line of text, you can use the global function **getline()**. `getline(cin, textt)` reads until a newline character occurs. `getline(cin, s, '.');` will read until period is reached
+**Reading a line** >> can be used to read only one word into a string. If you need to read a whole line of text, you can use the global function **getline()**. `getline(cin, textt)` reads until a newline character occurs. `getline(cin, s, '.');` will read until period is reached.
+
+`++i`  here `i` is incremented first and the new value of `i` is then applied
+`i++`  the original value of `i` is applied before `i` is incremented
+
+Two important loop iterations we need are `while, and for`, supplemeneted by the `if` conditionals.
+
+**while syntax**
+```cpp
+while (expression)
+{
+    statement1;     // called loop body
+    statement2;
+    ...
+}
+```
+
+Only if the `expression` becomes true, the body will execute.
+
+Example cases:
+```cpp
+int count = 1;
+while (count <= 10)
+{
+    cout << count << endl;
+    ++count;
+}
+
+int count;
+for (count=1; count<=10; ++count)
+{
+    cout << count << endl;
+}
+```
+```cpp
+if ()
+    //
+else if ()
+    //
+else if ()
+    //
+else
+    //
+```
+
+`(char)ch` yields the value of **ch** of type `char`
+
+`break` statement exits from a `switch` or `loop` immediately, then after break, the execution will jump to the first statement that follows the **switch or loop**
+
+`continue` will exit from the loop and goes to next iterations.
+
+`#define name substituetext` this defines a macro called "name". Note that neither an equal signs nor a semicolon is used
+
+symbolic constants
+```cpp
+#define PI 3.1415
+#define STEP (PI/8.0)
+#define HEADER (cout << "Hello I am the top Header" << endl;)
+```
+
+If you have a header file named "article.h"
+```cpp
+#ifndef _ARTICLE_
+#define _ARTICLE_
+... // contents of the header file
+#endif
+```
+
+It is possible to convert the type of an expression **explicitly** using the *cast operator* (type)
+
+**syntax** (type) expression
+
+This converts the value of an expression to the given type. Explicit conversion is also known as *casting*
+```cpp
+int a = 1, b = 4;
+double x;
+x = (double)a/b;    // a is explicitly changed to double
+                // b is then implicitly changed to double
+```
+
+**string**
+```cpp
+string message("Good morning!");
+cout << message.length();       // output: 13
+                // message.size() also is equivalent
+
+// string concatenation
+string sum, s1="sun", s2(" flower");
+sum = s1+s2;    // concatenates the strings s1 and s2
+        // output: "sunflower"
+
+// string comparison
+s1 == s2  // is true only if both strings are identical (same length)
+s1 < s2   // is true if s1 is smaller than s2
+
+// inserting a string
+string s1("Miss Summer");
+s1.insert(5, "Ashley "); // insert at position: 5
+        // output: "Miss Ashley Summer"
+
+// erasing a substring
+string s("The summer-time");
+s.erase(4, 7); // from position: 4 upto 7 characters
+    // erase() without any arguments delete it all
+
+// searching in the string
+string youth = "Bill is so young, so young";
+int first = youth.find("young");    // first: 11 (at 11th position)
+int last = youth.rfind("young"); // search from side side; last: 21
+
+// the at() method
+s.at(i) = 'X'; // is same as s[i]='X';
+```
+
+## Functions
+```cpp
+double area(double, double); // prototype (no need to give names of parameters)
+
+int main()
+{
+    double result;
+    double x=3.5, y=7.2;
+    result = area(x,y+1);   // function call (arguments: x, y+1)
+}
+
+// function definition
+double area(double width, double len)   // parameters: width, len
+{
+    return (width*len); // returns the value of w*l
+}
+```
+when the program flow reaches a *return statement* or the end of the function code block, it branches back to the function that called it (to the point where it was called).
+
+**start by passing by value**
