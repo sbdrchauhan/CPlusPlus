@@ -276,5 +276,55 @@ Account *ptrAccount = &savings;
 ```
 
 ## Methods
+We must initialize variables with suitable values, non-initialized variables might lead to the serious run-time error. Constructors are the best methods to initialize the variables. **Constructors** names are same as the class name, and it doesn't have the return type, not even the void, since the mere task of the constructors is to instantiate the object with the variables also initialized. They are declard public. Constructors can also be overloaded so that various ways to initialize the objects remains (but care must be taken that every constructors must initialize all the variables, one way or another). A *default constructor* is a method without any parameters. A default constructor will use standard values for all data members. Objects that were created by a constructor must also be cleaned up in an orderly manner via a special method called a *destructor*, whose name start with the tilde symbol `~`. It only has one type, no overload is possible for the destructor. It is important to define a destructor if certain actions performed by the constructor need to be undone. If the constructor opened a file, for example, the destructor should close that file. The destructor in the `Account` class has no specific tasks to perform. The explicit definition is thus: `Account::∼Account(){} // Nothing to do`. To access the private data members of the class, we use **getters and setters** method. If you define an object as `const`, the program can only read the object. Methods such as `getName` or `display()` will be unavailable to change the data members, although they only perform read access with the data members and so these types of methods don't need to modify the data members.
 
-**start from chp14**
+## Enumeration
+An enumeration is a user-definable, integral type. An enumeration is defined using the `enum` keyword. A range of values and a name for these values are also defined at the same time.**Example** `enum Shape{ Line, Rectangle, Ellipse};`
+
+## Arrays
+An *array* contains multiple objects of identical types stored sequentially in memory. The individual objects in an array, referred to as array elements, can be addressed using a number, the so-called index or *subscript*. An array is also referred to as a *vector*. An array must be defined just like any other object. The definition includes the array name and the type and number of array elements. `type name[count];`. Ex- `float arr[10];  // Array name arr`. This defines the array `arr` with 10 elements of `float` type, this is a *float array*. To access the elements of an array. `arr[0], arr[1], arr[2], ...` and so on, it always starts with `0` to index.
+```cpp
+short number[20];   // shrot array
+for (int i=0; i<20; i++>)
+{
+    number[i] = (short)(i*10); // assigns 0, 10, 20, .., 190
+}
+```
+Arrays can be initialized when you define them. A list containing the values for the individual array elements is used to initialize the array:
+`int num[3] = {30, 50, 80};`. You don't need to specify length if you initialize array when you define it, like `int num[] = {30, 50, 80};`. Here, the length of the array is equal to the number of initial values.
+
+**char Arrays** whose elements are of *char* type and are often used as data communication buffers. One way of representing a string is to store the string and the terminating null character '\0' in a char array. When you define an array, you can use a string constant to initialize the array. `char name[] = "Hugo";`. This definition is equivalent to `char name[] = {'H', 'u', 'g', 'o', '\0'};`. Here we require to null character.
+```cpp
+ // let's see some example of array definition
+ float number[3][10];      // 3x10 matrix (3 rows and 10 columns)
+
+ int arr[2][3] = { {5, 0, 0},  {7, 0, 0}  };
+    // int arr[][3] = { {5},  {7}  }; // equivalent
+
+int *ptr = arr; // ptr points to arr[0] (starting point of arr)
+```
+
+## Fundamentals of File Input and Output
+When a program is terminated, the program data stored in main memory is lost. To store data permanently, you need to write that data to a file on an external storage medium. Single characters or character strings can be written to text files just like they can be output on screen. C++ provides various standard classes for file management. These so-called file stream classes allow for easy file handling.
+* the `ifstream` class derives from the `istream` class and allows file reading
+* the `ofstream` class derives from the `ostream` class and supports writing to files
+
+**Open a file** You need to open a file before you can manipulate it. To do that:
+* give the path of to the file
+* define the access mode // read, write, open
+You can open a file when you create a file stream. `ifstream myfile("test.file");`, the file name `test.file` opened for reading. Since the path was not stated, the file must be in the current directory. When a file is opened, the current file position is the beginning of the file. If you create a file stream for write-only access, the file you state need not exist. In this case a new file is created. `ofstream yourfile("new.file");`. This statement creates a new file called `new.file` and opens the file for writing. But be careful! If the file already exists, it will be truncated to a length of zero bytes, or in other words deleted.
+
+You can create a file stream which does not reference a specific file and use the `open()` method to open a file later.
+```cpp
+ofstream yourfile;
+yourfile.open("new.file");
+```
+
+**Error Handling** Errors can occur when opening a file. A user may not have the required access privileges, or the file you want to read may not exist. `if ( !myfile )        // or: if ( myfile.fail() )`. Another check of the file `if ( myfile.eof() )        // at end-of-file?`
+
+## Dynamic Memory Allocation
+`new` operator in the play. When a program is compiled, the size of the data the program will need to handle is often an unknown factor; in other words there is no way to estimate the memory requirements of the program. In cases like this you will need to allocate memory dynamically, that is, while the program is running. Dynamically allocated memory can be released to continually optimize memory usage with respect to current requirements. This in turn provides a high level of flexibility, allowing a programmer to represent dynamic data structures, such as trees and linked lists. C++ uses the `new` and `delete` operators to allocate and release memory, and this means that objects of any type can be created and destroyed.
+
+The `new` operator is an operator that expects the type of object to be created as an argument. `ptr = new type;`, where `ptr` is a pointer to `type`.
+
+read from pg 455

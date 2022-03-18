@@ -3,6 +3,21 @@
 #include <iomanip>
 using namespace std;
 
+Account::Account(const string& a_name,
+                unsigned long a_nr, double a_state)
+{
+    name = a_name;
+    nr   = a_nr;
+    state = a_state;
+}
+
+Account::Account(const string& a_name)
+{
+    name = a_name;
+    nr   = 11111111;
+    state = 0.0;
+}
+
 // the method init() copies the given arguments into
 // the private members of the class
 bool Account::init(const string& i_name,
