@@ -325,6 +325,51 @@ yourfile.open("new.file");
 ## Dynamic Memory Allocation
 `new` operator in the play. When a program is compiled, the size of the data the program will need to handle is often an unknown factor; in other words there is no way to estimate the memory requirements of the program. In cases like this you will need to allocate memory dynamically, that is, while the program is running. Dynamically allocated memory can be released to continually optimize memory usage with respect to current requirements. This in turn provides a high level of flexibility, allowing a programmer to represent dynamic data structures, such as trees and linked lists. C++ uses the `new` and `delete` operators to allocate and release memory, and this means that objects of any type can be created and destroyed.
 
-The `new` operator is an operator that expects the type of object to be created as an argument. `ptr = new type;`, where `ptr` is a pointer to `type`.
+The `new` operator is an operator that expects the type of object to be created as an argument. `ptr = new type;`, where `ptr` is a pointer to `type`. The `new` operator creates an object of the specified type and returns the address of that object. The address is normally assigned to the pointer variable.
+```cpp
+long double *pld = new long double(10000.99);
+```
+A program should make careful use of available memory and always release memory that
+is no longer needed. Failure to do so can impact the performance of your computer system.
+Memory that is released is available for further calls to `new`. Memory that has been allocated by a call to `new` can be released using the `delete` operator. `delete ptr;` Here `ptr` memory will be released, but be sure that this memory space was dynamically allocated by a call to `new`.
+```cpp
+long *p1 = new long(20000000);
+    .....    // do some work with *pi.
+delete pi;
+```
+If you don't call `delete`, the dynamically allocated memory space is not released until the program terminates. Two cautions to take when using `delete`:
+* do not call `delete` twice for the same object
+* do not use `delete` to release statically allocated memory
+```cpp
+class FloatArr
+{
+    public:
+        // public methods here
+    private:
+        float* arrPtr;      // Dynamic member
+        int max;  // max quantitiy without reallocating new storage
+        int cnt;  // number of present elements
+}
+```
+You can exploit the potential of dynamic memory allocation to leverage existing classes and create data members of variable length. Depending on the amount of data an application program really has to handle, memory is allocated as required while the application is running. In order to do this the class needs a pointer to the dynamically allocated memory that contains the actual data. Data members of this kind are also known as dynamic members of a class. When compiling a program that contains arrays, you will probably not know how many elements the array will need to store. A class designed to represent arrays should take this point into consideration and allow for dynamically defined variable length arrays.
 
-read from pg 455
+## Inheritance
+Inheritance allows new classes to be constructed on the basis of existing classes. The new *derived class* “inherits” the data and methods of the so-called *base class*. But you can add more characteristics and functionality to the new class.
+* **data abstraction**: General characteristics and abilities can be handled by generic (base) classes and specializations can be organized in hierarchical relationships by means of derived classes. This makes it easier to manage complex situations and relationships.
+
+## Polymorphism
+In C++, *virtual methods* are used to implement polymorphic classes. The *virtual* keyword is used to declare a virtual method in a base class. `virtual void display() const;`. However, it is common practice for the derived class to define its own version of the virtual method, which is thus modified to suit the special features of the derived class. The redefinition in the derived class must have:
+* the same signature and
+* the same return type
+as the virtual method in the base class. The new version of a virtual method is automatically virtual itself. This means you can omit the **virtual** keyword in the declaration.
+
+## Exception/Error Handling
+Errors that occur at program runtime can seriously interrupt the normal flow of a program.
+Some common causes of errors are
+* division by 0, or values that are too large or small for a type
+* no memory available for dynamic allocation
+* errors on file access, for example, file not found
+* attempt to access an invalid address in main memory
+* invalid user input
+
+Anomalies like these lead to incorrect results and may cause a computer to crash. Both of these cases can have fatal effects on your application. One of the programmer’s most important tasks is to predict and handle errors. You can judge a program’s quality by the way it uses error-handling techniques to counteract any potential error, although this is by no means easy to achieve.
