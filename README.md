@@ -282,7 +282,92 @@ We must initialize variables with suitable values, non-initialized variables mig
 An enumeration is a user-definable, integral type. An enumeration is defined using the `enum` keyword. A range of values and a name for these values are also defined at the same time.**Example** `enum Shape{ Line, Rectangle, Ellipse};`
 
 ## Arrays
-An *array* contains multiple objects of identical types stored sequentially in memory. The individual objects in an array, referred to as array elements, can be addressed using a number, the so-called index or *subscript*. An array is also referred to as a *vector*. An array must be defined just like any other object. The definition includes the array name and the type and number of array elements. `type name[count];`. Ex- `float arr[10];  // Array name arr`. This defines the array `arr` with 10 elements of `float` type, this is a *float array*. To access the elements of an array. `arr[0], arr[1], arr[2], ...` and so on, it always starts with `0` to index.
+An array is a series of elements of the same type placed in contiguous memory locations that can be individually referenced by adding an index to a unique identifier. An *array* contains multiple objects of identical types stored sequentially in memory. The individual objects in an array, referred to as array elements, can be addressed using a number, the so-called index or *subscript*. An array is also referred to as a *vector*. An array must be defined just like any other object. The definition includes the array name and the type and number of array elements. `type name[count];`. Ex- `float arr[10];  // Array name arr`. This defines the array `arr` with 10 elements of `float` type, this is a *float array*. To access the elements of an array. `arr[0], arr[1], arr[2], ...` and so on, it always starts with `0` to index. Like a regular variable, an array must be declared before it is used.
+```cpp
+type name[elements];   // type is like (int, float, ...)
+```
+> NOTE: The `elements` field within square bracket `[]`, representing the number of elements in the array, must be a *constant expression*, since arrays are blocks of static memory whose size must be determined at compile time, before the program runs.
+
+### Initializing arrays
+Be default, regular arrays are of local scopes, defined in the funciton and are left uninitialized. But the elements in an array can be explictly initialized to specific values when it is declared, by enclosing those initial values in braces `{}`. For example:
+```cpp
+int foo[5] = {1, 3, 4, 8, 2};
+int bar[5] = {1,3,4}; // other two location will have zeros in them
+int baz[5] = {};      // all the location will have default zeros in them
+int fooz[] = {1, 4, 4, 3}; // fooz automatically knows it is 4 elements array
+
+// accessing values of an array
+foo[2]  // access 4
+x = foo[3]; assigns x to 8
+foo[0] = 5; // modifies array, 0 location is now 5
+```
+### Mulitdimensional arrays
+It can be described as "arrays of arrays". Bi-dimensional array can be thought as a two-dimensional table made of elements, all of them of same uniform data type.
+```cpp
+int jimmy[3][5];    // can be thought at rows=3 and cols=5 table
+```
+Multidimensional arrays are not limited to two indices (i.e., two dimensions). They can contain as many indices as needed. Although be careful: the amount of memory needed for an array increases exponentially with each dimension. For example:
+```cpp
+char century[100][365][24][60][60];
+```
+declares an array with an element of type `char` for each second in a century. This amounts to more than 3 billion `char`! So this declaration would consume mroe than 3 GB of memory! Not pracitcal.
+
+At the end, multidimensional arrays are just an abstraction for programmers, since the same results can be achieved with a simple array, by multiplying its indices:
+```cpp
+int jimmy[3][5]; // equilvalent to
+int jimmy[15];  // (3*5=15)
+```
+With the only difference that with multidimensional arrays, the compiler automatically remembers the depth of each imaginary dimension.
+
+### Arrays as Parameters
+At some point, we may need to pass an array to a function as a parameter. In C++, it is not possible to pass the entire block of memory represented by an array to a function directly as an argument. But what can be passed instead is its address. In practice, this has almost the same effect, and it is a much faster and more efficient operation.
+
+To accept an array as parameter for a function, the parameters can be declared as the array type, but with empty brackets, omitting the actual size of the array. For example:
+```cpp
+void procedure(int arg[])
+```
+This function accepts a parameter of type `array of int` called **arg**. In order to pass to this function an array declared as: `int myarray[40];`, it would be enough to write a call like this: `procedure(myarray);`. Let's see one example at work:
+```cpp
+// arrays as parameters
+#include <iostream>
+using namespace std;
+
+void printarray (int arg[], int length) {
+  for (int n=0; n<length; ++n)
+    cout << arg[n] << ' ';
+  cout << '\n';
+}
+
+int main ()
+{
+  int firstarray[] = {5, 10, 15};
+  int secondarray[] = {2, 4, 6, 8, 10};
+  printarray (firstarray,3);
+  printarray (secondarray,5);
+}
+```
+In the code above, the first parameter (int arg[]) accepts any array whose elements are of type int, whatever its length. For that reason, we have included a second parameter that tells the function the length of each array that we pass to it as its first parameter. This allows the for loop that prints out the array to know the range to iterate in the array passed, without going out of range.
+
+### Library arrays (C++ standard type from standard container)
+This feature allows advance array operations and manipulations (need to learn more for this). Let's just see one example:
+```cpp
+#include <iostream>
+#include <array>        // see how we use array library
+using namespace std;
+
+int main()
+{
+  array<int,3> myarray {10,20,30};
+
+  for (int i=0; i<myarray.size(); ++i)  // this has size() feature, nice
+    ++myarray[i];       // this loop is increasing the values by 1
+                        // trying this so we know we can access values as well
+
+  for (int elem : myarray)
+    cout << elem << '\n';
+}
+```
+### From other book:
 ```cpp
 short number[20];   // shrot array
 for (int i=0; i<20; i++>)
