@@ -2,6 +2,8 @@ Notes on C++ language collected and compiled from various source.
 
 ## List of references
 * [A Complete Guide to Programming in C++](https://www.amazon.com/Complete-Guide-Programming-Title-Demand/dp/0763718173)
+* [cpusplus.com](http://www.cplusplus.com/doc/tutorial/)
+* 
 
 <hr/>
 
