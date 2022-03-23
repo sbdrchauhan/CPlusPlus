@@ -141,7 +141,7 @@ x = (double)a/b;    // a is explicitly changed to double
                 // b is then implicitly changed to double
 ```
 
-**string**
+## string
 ```cpp
 string message("Good morning!");
 cout << message.length();       // output: 13
@@ -174,6 +174,18 @@ int last = youth.rfind("young"); // search from side side; last: 21
 // the at() method
 s.at(i) = 'X'; // is same as s[i]='X';
 ```
+Since **strings** are in fact a sequence of characters, we can represent them also as plain arrays of elements of a character type. For example: `char foo[20];` is an array that can store up to 20 elements of type `char`. The capacity of this array doesn't need to be fully exhausted: the array can also accomodate shorter sequences. Than means either "Hello" or "Merry Christmas" can be stored in `foo`, since both would fit in a sequence with a capacity of 20 characters. The end of the string is denoted by the *null character*, `'\0'` (backslash zero).
+
+The string literals, the ones that is started with double quotes `"this is string literal."`, they automatically contains the **null character** at the end. So, this makes our lives easier when we have to initialize char arrays. Example:
+```cpp
+char myword[] = {'H', 'E', 'L', 'L', 'O', '\0'};
+char myword[] = "Hello";        // much better way
+```
+In both the cases, the array of characters `myword` is declared with a size of 6 elements of type `char`. Remember '\0' is automatically been added in the second case at the end of the sequence, since we use string literal to initialize this sequence.
+
+> NOTE: Once string literals are initialized, they cannot be re-assigned. However, each of the elements can be re-assigned a value though. So, `myword = "Bye"; // is not ok` but, `myword[0] = 'B';`, `myword[1] = 'y';`, `myword[2] = 'e';`, `myword[3] = '\0';` is okay.
+
+
 
 ## Functions
 ```cpp
