@@ -185,7 +185,35 @@ In both the cases, the array of characters `myword` is declared with a size of 6
 
 > NOTE: Once string literals are initialized, they cannot be re-assigned. However, each of the elements can be re-assigned a value though. So, `myword = "Bye"; // is not ok` but, `myword[0] = 'B';`, `myword[1] = 'y';`, `myword[2] = 'e';`, `myword[3] = '\0';` is okay.
 
+Plain arrays with null-terminated sequences of characters are the typical types in the C language to represent strings (that is why they are called *C-strings*). In C++, even though the standard library defines a specific type for strings (class `string`), still, plain arrays with null-terminated sequences of characters (C-strings) are a natural way of representing strings in the language; in fact, string literals still always produce null-terminated character sequences, and not `string` objects. In the standard library, both representations for strings (C-strings and library strings) coexist, and most functions requiring strings are overloaded to support both. If you notice, both arrays of characters using null-terminated sequences and strings are used almost same way,  but there is a notable difference in their declarations: arrays have a fixed size that needs to be specified either implicit or explicitly when declared; question1 has a size of exactly 20 characters (including the terminating null-characters) and answer1 has a size of 80 characters; while strings are simply strings, no size is specified. This is due to the fact that strings have a dynamic size determined during runtime, while the size of arrays is determined on compilation, before the program runs. In any case, null-terminated character sequences and strings are easily transformed from one another: Null-terminated character sequences can be transformed into strings implicitly, and strings can be transformed into null-terminated character sequences by using either of string's member functions c_str or data:
 
+```cpp
+// strings and NTCS:
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main ()
+{
+  char question1[] = "What is your name? ";
+  string question2 = "Where do you live? ";
+  char answer1 [80];
+  string answer2;
+  cout << question1;
+  cin >> answer1;
+  cout << question2;
+  cin >> answer2;
+  cout << "Hello, " << answer1;
+  cout << " from " << answer2 << "!\n";
+  return 0;
+}
+```
+```cpp
+char myntcs[] = "some text";
+string mystring = myntcs;  // convert c-string to string
+cout << mystring;          // printed as a library string
+cout << mystring.c_str();  // printed as a c-string 
+```
 
 ## Functions
 ```cpp
@@ -226,6 +254,114 @@ A function that calls itself is said to be *recursive*. It could also have calle
 `extern string line;` means in another source file this `string line` has to be globally defined; so the new or other source file can use it as an `extern`.
 
 ## References and Pointers
+In earlier chapters, variables have been explained as locations in the computer's memory which can be accessed by their identifier (their name). This way, the program does not need to care about the physical address of the data in memory; it simply uses the identifier whenever it needs to refer to the variable. For a C++ program, the memory of a computer is like a succession of memory cells, each one byte in size, and each with a unique address. These single-byte memory cells are ordered in a way that allows data representations larger than one byte to occupy memory cells that have consecutive addresses. This way, each cell can be easily located in the memory by means of its unique address. For example, the memory cell with the address 1776 always follows immediately after the cell with address 1775 and precedes the one with 1777, and is exactly one thousand cells after 776 and exactly one thousand cells before 2776. When a variable is declared, the memory needed to store its value is assigned a specific location in memory (its memory address). Generally, C++ programs do not actively decide the exact memory addresses where its variables are stored. Fortunately, that task is left to the environment where the program is run - generally, an operating system that decides the particular memory locations on runtime. However, it may be useful for a program to be able to obtain the address of a variable during runtime in order to access data cells that are at a certain position relative to it.
+
+**address-of operator &**
+
+The address of a variable can be obtained by preceding the name of a variable with an ampersand sign (`&`), known as *address-of operator*. For example: `foo = &myvar; // foo is the pointer that stores address of other variable`. This would assign the address of variable myvar to foo; by preceding the name of the variable myvar with the address-of operator (&), we are no longer assigning the content of the variable itself to foo, but its address. The variable that stores the address of another variable (like foo in the previous example) is what in C++ is called a pointer. Pointers are a very powerful feature of the language that has many uses in lower level programming.
+
+**dereference operator (\*)**
+
+As just seen, a variable which stores the address of another variable is called a pointer. Pointers are said to "point to" the variable whose address they store. An interesting property of pointers is that they can be used to access the variable they point to directly. This is done by preceding the pointer name with the dereference operator (*). `bar = *foo; // gives value pointing by pointer foo`.
+
+**Declaring pointers**
+
+Due to the ability of a pointer to directly refer to the value that it points to, a pointer has different properties when it points to a `char` than when it points to an `int` or a `float`. Once dereferenced, the type needs to be known. And for that, the declaration of a pointer needs to include the data type the pointer is going to point to.
+
+syntax:
+```cpp
+type * name;
+```
+where `type` is the data type pointed to by the pointer. This type is not the type of the pointer itself, but the type of the data the pointer points to.
+```cpp
+int* number;
+char* character;
+double* decimals;
+```
+These are three declarations of pointers. Each one is intended to point to a different data type, but, in fact, all of them are pointers and all of them are likely going to occupy the same amount of space in memory (the size in memory of a pointer depends on the platform where the program runs). Nevertheless, the data to which they point to do not occupy the same amount of space nor are of the same type: the first one points to an int, the second one to a char, and the last one to a double. Therefore, although these three example variables are all of them pointers, they actually have different types: int*, char*, and double* respectively, depending on the type they point to.
+
+Let's see an example on pointers:
+```cpp
+#include <iostream>
+using namespace std;
+
+int main ()
+{
+  int firstvalue, secondvalue;
+  int * mypointer;
+
+  mypointer = &firstvalue;
+  *mypointer = 10;
+  mypointer = &secondvalue;
+  *mypointer = 20;
+  cout << "firstvalue is " << firstvalue << '\n';
+  cout << "secondvalue is " << secondvalue << '\n';
+  return 0;
+}
+```
+Here, even though `firstvalue` and `secondvalue` don't get initialized directly; but using the pointer to manipulate its address, we could indirectly assign the value.
+
+**pointers and arrays**
+
+The concept of arrays is related to that of pointers. In fact, arrays work very much like pointers to their first elements, and, actually, an array can always be implicitly converted to the pointer of the proper type.
+```cpp
+int myarray[20];
+int *mypointer;
+mypointer = myarray;    // valid
+```
+After that, mypointer and myarray would be equivalent and would have very similar properties. The main difference being that mypointer can be assigned a different address, whereas myarray can never be assigned anything, and will always represent the same block of 20 elements of type int.
+```cpp
+// more pointers
+#include <iostream>
+using namespace std;
+
+int main ()
+{
+  int numbers[5];
+  int * p;
+  p = numbers;  *p = 10;    // see various ways to manipulate address location
+  p++;  *p = 20;            // and re-assign the values
+  p = &numbers[2];  *p = 30;
+  p = numbers + 3;  *p = 40;
+  p = numbers;  *(p+4) = 50;
+  for (int n=0; n<5; n++)
+    cout << numbers[n] << ", ";
+  return 0;
+
+  // outputs: 10, 20, 30, 40, 50,
+}
+```
+Pointers and arrays support the same set of operations, with the same meaning for both. The main difference being that pointers can be assigned new addresses, while arrays cannot.
+
+Pointers can be initialized to point to specific locations at the very moment they are defined:
+```cpp
+int myvar;
+int * myptr = &myvar;
+```
+Pointers can be initialized either to the address of a variable (such as above), or to the value of another pointer (or an array):
+```cpp
+int myvar;
+int *foo = &myvar;  // pointing to address of myvar variable
+int *bar = foo;     // pointer pointing to another pointer
+
+int numbers[5];
+int *p;
+p = numbers;  // pointer pointing to the first element address of an array
+```
+
+**pointers and const**
+
+Pointers can be used to access a variable by its address, and this access may include modifying the value pointed. But it is also possible to declare pointers that can access the pointed value to read it, but not to modify it. For this, it is enough with qualifying the type pointed to by the pointer as `const`. For example:
+```cpp
+int x;
+int y = 10;
+const int * p = &y;  // p pointing to address of y
+                // this pointer p is const 
+x = *p; // we can read-the pointer pointing value
+*p = x; // we cannot re-assign the new value for const p
+```
+`NULL, nullptr, 0` are all null pointers for any pointers to point to if they don't have any initial values to point to.
+
 The reference type and reference variable should match the type.
 ```cpp
 float x = 10.7; //
@@ -248,7 +384,7 @@ test(var);  // increments the variable var
 ```
 If you need to read arguments, but not copy them, you can define a *read-only reference* as a parameter. `void display( const string& str);`. We can rest assured that the argument is not modified within the function, as `str` is declared as a `const`.
 
-**Definint Pointers** A *pointer* is an expression that represents both the *address* and *type* of another object. `&var` is the address of the object var. A pointer points to a memory address and simultaneously indicates by its type how the memory address can be read or written to. Thus, depending on the type, we refer to pointers to char, pointers to int, and so on, or say in abbreviation, such as char pointer, int pointer, and so on.
+**Defining Pointers** A *pointer* is an expression that represents both the *address* and *type* of another object. `&var` is the address of the object var. A pointer points to a memory address and simultaneously indicates by its type how the memory address can be read or written to. Thus, depending on the type, we refer to pointers to char, pointers to int, and so on, or say in abbreviation, such as char pointer, int pointer, and so on.
 
 We can define *pointer variables*, i.e., variables that can store the address of another object. `int *ptr;` // or `int* ptr;` This defines variable `ptr`, which is an `int*` type (in other words, a *pointer to int*). `ptr` can thus store the address of an `int` variable.
 
@@ -257,8 +393,39 @@ is not merely an alias but an individual object that has an identity separate fr
 object it references. A pointer has its own memory address and can be manipulated by
 pointing it at a new memory address and thus referencing a different object.
 
+## Dynamic memory
+In the programs seen in previous chapters, all memory needs were determined before program execution by defining the variables needed. But there may be cases where the memory needs of a program can only be determined during runtime. For example, when the memory needed depends on user input. On these cases, programs need to dynamically allocate memory, for which the C++ language integrates the operators `new` and `delete`.
+
 ## Defining Classes
-Humans use abstraction all the time to manage complex situation. Classes are the language element in C++ most important to the suppport of OOP concept. A class defines the properties and capacities of an object. The first step towards solving a problem is analysis. In object-oriented programming, analysis comprises identifying and describing objects and recognizing their mutual relationships. Object descriptions are the building blocks of classes. In C++, a class is a user-defined type. It contains data members, which describe the properties of the class, and member functions, or methods, which describe the capacities of the objects. Classes are simply patterns used to instantiate, or create, objects of the class type. In other words, an object is a variable of a given class.
+Humans use abstraction all the time to manage complex situation. Classes are the language element in C++ most important to the suppport of OOP concept. A class defines the properties and capacities of an object. The first step towards solving a problem is analysis. In object-oriented programming, analysis comprises identifying and describing objects and recognizing their mutual relationships. Object descriptions are the building blocks of classes. In C++, a class is a user-defined type. It contains data members, which describe the properties of the class, and member functions, or methods, which describe the capacities of the objects. Classes are simply patterns used to instantiate, or create, objects of the class type. In other words, an object is a variable of a given class. **private members** of a class are accessible only from within other members of the same class (or from their "friends"). **protected members** are accessible from other members of the same class (or from their "friends"), but also from members of their derived classes. Finally, **public members** are accessible from anywhere where the object is visible.
+
+When a constructor is used to initialize other members, these other members can be initialized directly, without resorting to statements in its body. This is done by inserting, before the constructor's body, a colon (:) and a list of initializations for class members. For example, consider a class with the following declaration:
+```cpp
+class Rectangle
+{
+    public:
+        Rectangle(int, int);
+        int area(){return width * height;}
+
+    private:
+        int width, height;
+};
+
+// we could use our usual way to define the constructor
+Rectangle::Rectangle(int w, int h)
+{
+    width = w;
+    height = h;
+}
+
+// or we can use this a little advance way (preferred way)
+Rectangle::Rectangle(int w, int h)
+: width(w), height(h)
+{
+    // nothing to put inside
+}
+
+```
 
 When you define a class, you also specify the private members, that is, the members that
 are not available for external access, and the public members of that class. An application
@@ -292,8 +459,28 @@ Account *ptrAccount = &savings;
 ## Methods
 We must initialize variables with suitable values, non-initialized variables might lead to the serious run-time error. Constructors are the best methods to initialize the variables. **Constructors** names are same as the class name, and it doesn't have the return type, not even the void, since the mere task of the constructors is to instantiate the object with the variables also initialized. They are declard public. Constructors can also be overloaded so that various ways to initialize the objects remains (but care must be taken that every constructors must initialize all the variables, one way or another). A *default constructor* is a method without any parameters. A default constructor will use standard values for all data members. Objects that were created by a constructor must also be cleaned up in an orderly manner via a special method called a *destructor*, whose name start with the tilde symbol `~`. It only has one type, no overload is possible for the destructor. It is important to define a destructor if certain actions performed by the constructor need to be undone. If the constructor opened a file, for example, the destructor should close that file. The destructor in the `Account` class has no specific tasks to perform. The explicit definition is thus: `Account::∼Account(){} // Nothing to do`. To access the private data members of the class, we use **getters and setters** method. If you define an object as `const`, the program can only read the object. Methods such as `getName` or `display()` will be unavailable to change the data members, although they only perform read access with the data members and so these types of methods don't need to modify the data members.
 
-## Enumeration
+## Enumeration (enum)
 An enumeration is a user-definable, integral type. An enumeration is defined using the `enum` keyword. A range of values and a name for these values are also defined at the same time.**Example** `enum Shape{ Line, Rectangle, Ellipse};`
+
+synatx:
+
+```cpp
+enum type_name
+{
+    value1,
+    value2,
+    value3,
+    ...
+    object_names;
+}
+
+// example:
+enum colors_t {black, blue, green, cyan, red, purple, yellow, white};
+
+colors_t mycolor;
+mycolor = blue;
+if (mycolor == green) mycolor = red;
+```
 
 ## Arrays
 An array is a series of elements of the same type placed in contiguous memory locations that can be individually referenced by adding an index to a unique identifier. An *array* contains multiple objects of identical types stored sequentially in memory. The individual objects in an array, referred to as array elements, can be addressed using a number, the so-called index or *subscript*. An array is also referred to as a *vector*. An array must be defined just like any other object. The definition includes the array name and the type and number of array elements. `type name[count];`. Ex- `float arr[10];  // Array name arr`. This defines the array `arr` with 10 elements of `float` type, this is a *float array*. To access the elements of an array. `arr[0], arr[1], arr[2], ...` and so on, it always starts with `0` to index. Like a regular variable, an array must be declared before it is used.
@@ -472,3 +659,32 @@ Some common causes of errors are
 * invalid user input
 
 Anomalies like these lead to incorrect results and may cause a computer to crash. Both of these cases can have fatal effects on your application. One of the programmer’s most important tasks is to predict and handle errors. You can judge a program’s quality by the way it uses error-handling techniques to counteract any potential error, although this is by no means easy to achieve.
+
+
+## Type aliases (typedef / using)
+To create aliases using C style using keyword `typedef`:
+```cpp
+typedef existing_type new_type_name;
+```
+where `existing_type` is any type, either fundamental or compound, and `new_type_name` is an identifier with the new name given to the type.
+```cpp
+typedef char C; // here C means char
+// we can then use it as
+C mychar, anotherchar, *ptc1; // to define type of variable or even pointer
+typedef unsigned int WORD;  // WORD means usigned int
+typedef char * pChar;   // we are creating aliases
+pChar ptc2; // ptc2 is a pointer of char
+typedef char field [50]; 
+field name; // char name [50];
+```
+
+Another way, recently, is to use keyword `using`
+```cpp
+using new_type_name = existing_type;
+
+// for example:
+using C = char;
+using WORD = unsigned int;
+using pChar = char *;
+using field = char [50];
+```
