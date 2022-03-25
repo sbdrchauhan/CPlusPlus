@@ -591,6 +591,94 @@ int *ptr = arr; // ptr points to arr[0] (starting point of arr)
 ```
 
 ## Fundamentals of File Input and Output
+C++ provides the following classes to perform output and input of characters to/from files:
+* `ofstream`: Stream class to write on files
+* `ifstream`: Stream class to read from files
+* `fstream`: Stream class to both read and write from/to files
+
+These classes are derived directly or indirectly from the classes `istream` and `ostream`. We have already known these types of objects: `cin` is an object of class `istream` and `cout` is an object of class `ostream`. Therefore, we have already been using classes that are related to our file streams. And in fact, we can use our file streams the same way we are already used to use cin and cout, with the only difference that we have to associate these streams with physical files. Let's see an example:
+```cpp
+// basic file operations
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main () {
+  ofstream myfile;
+  myfile.open ("example.txt");
+  myfile << "Writing this to a file.\n";
+  myfile.close();
+  return 0;
+}
+```
+This code creates a file called example.txt and inserts a sentence into it in the same way we are used to do with cout, but using the file stream myfile instead.
+
+**open a file**
+
+The first operation generally performed on an object of one of these classes is to associate it to a real file. This procedure is known as to open a file. An open file is represented within a program by a stream (i.e., an object of one of these classes; in the previous example, this was myfile) and any input or output operation performed on this stream object will be applied to the physical file associated to it. In order to open a file with a stream object we use its member function open: `open (filename, mode);`. Each of the open member functions of classes ofstream, ifstream and fstream has a default mode that is used if the file is opened without a second argument:
+```cpp
+class           default mode
+ofstream        ios::out    // open for output operations
+ifstream        ios::in     // open for input operations
+fstream         ios::in | ios::out  // both
+```
+To check if a file stream was successful opening a file, you can do it by calling to member is_open. This member function returns a bool value of true in the case that indeed the stream object is associated with an open file, or false otherwise:
+```cpp
+if (myfile.is_open()) { /* ok, proceed with output */ }
+```
+
+**closing a file**
+
+When we are finished with our input and output operations on a file we shall close it so that the operating system is notified and its resources become available again. For that, we call the stream's member function close. This member function takes flushes the associated buffers and closes the file:
+```cpp
+myfile.close();
+```
+more examples: writing on a file
+```cpp
+// writing on a text file
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main () {
+  ofstream myfile ("example.txt");
+  if (myfile.is_open())
+  {
+    myfile << "This is a line.\n";
+    myfile << "This is another line.\n";
+    myfile.close();
+  }
+  else cout << "Unable to open file";
+  return 0;
+}
+```
+reading a file: same as `cin`
+```cpp
+// reading a text file
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main () {
+  string line;
+  ifstream myfile ("example.txt");
+  if (myfile.is_open())
+  {
+    while ( getline (myfile,line) )
+    {
+      cout << line << '\n';
+    }
+    myfile.close();
+  }
+
+  else cout << "Unable to open file"; 
+
+  return 0;
+}
+```
+This last example reads a text file and prints out its content on the screen. We have created a while loop that reads the file line by line, using getline. The value returned by getline is a reference to the stream object itself, which when evaluated as a boolean expression (as in this while-loop) is true if the stream is ready for more operations, and false if either the end of the file has been reached or if some other error occurred. Other state flags are: `eof()` returns true if a file open for reading has reached the end, `fail()` returns true when reading and writing operation fails.
+
 When a program is terminated, the program data stored in main memory is lost. To store data permanently, you need to write that data to a file on an external storage medium. Single characters or character strings can be written to text files just like they can be output on screen. C++ provides various standard classes for file management. These so-called file stream classes allow for easy file handling.
 * the `ifstream` class derives from the `istream` class and allows file reading
 * the `ofstream` class derives from the `ostream` class and supports writing to files
@@ -884,13 +972,45 @@ int main () {
 }
 ```
 
-
-
 ## Polymorphism
 In C++, *virtual methods* are used to implement polymorphic classes. The *virtual* keyword is used to declare a virtual method in a base class. `virtual void display() const;`. However, it is common practice for the derived class to define its own version of the virtual method, which is thus modified to suit the special features of the derived class. The redefinition in the derived class must have:
 * the same signature and
 * the same return type
 as the virtual method in the base class. The new version of a virtual method is automatically virtual itself. This means you can omit the **virtual** keyword in the declaration.
+
+**virtual members**
+
+A virtual member is a member function that can be redefined in a derived class, while preserving its calling properties through references. The syntax for a function to become virtual is to precede its declaration with the virtual keyword:
+```cpp
+// virtual members
+#include <iostream>
+using namespace std;
+
+class Polygon {
+  protected:
+    int width, height;
+  public:
+    void set_values (int a, int b)
+      { width=a; height=b; }
+    virtual int area ()
+      { return 0; }
+};
+
+class Rectangle: public Polygon {
+  public:
+    int area ()
+      { return width * height; }
+};
+
+class Triangle: public Polygon {
+  public:
+    int area ()
+      { return (width * height / 2); }
+};
+```
+
+
+
 
 ## Exception/Error Handling
 Errors that occur at program runtime can seriously interrupt the normal flow of a program.
