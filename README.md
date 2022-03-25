@@ -237,6 +237,43 @@ when the program flow reaches a *return statement* or the end of the function co
 **function pass by value and pass by reference**
 Passing by values means you input the copies of the arguments. But passing by reference is also important when you need to work with the larger datasets like vectors, and so we would work on the object directly.
 
+**functions passed by reference**
+
+Sometimes we do need to change/modify the value of an actual parameter that is passed into. We achieve this as follows using reference parameters, whose types are post-fixed with an `&`:
+```cpp
+#include <iostream>
+using namespace std;
+
+int area(int,int);  // prototype
+
+void get_dimension(int&, int&); // prototype
+
+int main()
+{
+    int this_length, this_width;
+    get_dimensions(this_length, this_width);
+    cout << "The area of a " << this_length << "x" << this_width;
+    cout << " rectangle is " << area(this_length, this_width);
+
+    return 0;
+}
+
+void get_dimension(int& length, int& width)
+{
+    cout << "Enter the length: ";
+    cin >> length;
+
+    cout << "Enter the width: ";
+    cin >> width;
+    cout << endl;
+}
+
+int area(int length, int width)
+{
+    return length * width;
+}
+```
+
 **Inline Function**
 It will take a lot of time if we need to call some function multiple times and this function doesn't even have much inside the body. So, inline function can be defined in these cases.
 ```cpp
@@ -549,6 +586,38 @@ int main ()
 ```
 In the code above, the first parameter (int arg[]) accepts any array whose elements are of type int, whatever its length. For that reason, we have included a second parameter that tells the function the length of each array that we pass to it as its first parameter. This allows the for loop that prints out the array to know the range to iterate in the array passed, without going out of range.
 
+**Arrays as Parameters in Functions**
+
+Functions can be used with array parameters to maintain a structured design. Here is a definition of an example function which returns the average hours worked, given an array of type "hours_array" :
+```cpp
+float average(hours_array hrs)
+{
+    float total = 0;
+    int count;
+    for (count=0; count < NO_OF_EMPLOYEES; count++)
+    {
+        total += float(hrs[count]);
+    }
+    return (total / NO_OF_EMPLOYEES);
+}
+```
+There is better way to do this, however;
+```cpp
+float average(int list_a[], int length)
+{
+    float total = 0;
+    int count;
+    for (count=0; count < length; count++)
+    {
+        total += float(list_a[count]);
+    }
+    return (total / length);
+}
+```
+
+
+
+
 ### Library arrays (C++ standard type from standard container)
 This feature allows advance array operations and manipulations (need to learn more for this). Let's just see one example:
 ```cpp
@@ -693,6 +762,93 @@ You can create a file stream which does not reference a specific file and use th
 ofstream yourfile;
 yourfile.open("new.file");
 ```
+
+**character Input and Output**
+
+**Input using "get()"**: Having opened an input file, we can extract or read single characters from it using the member function `get()`. This function takes a single argument of type `char`. We do `in_stream.get(ch);` it will start collecting chars one after another from the `in_stream` which is pointing to the file.
+
+**Output using "put()"**: We can write single characters to a file opened via an `ofstream` using the member function `put()`. Again this function takes in a single characters of type `char`. We do `out_stream.put('4');` to write into the opened file.
+
+```cpp
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void copy_to(ifstream&, ofstream&);
+
+int main()
+{
+    ifstream in_stream;
+    ofstream out_stream;
+
+    in_stream.open("file1.txt");
+    out_stream.open("file2.txt");
+    copy_to(in_stream, out_stream);
+    out_stream.close();
+    in_stream.close();
+
+    return 0;
+}
+
+void copy_to(ifstream& in, ofstream& out)
+{
+    char character;
+
+    in.get(character);
+    while (!in.fail())
+    {
+        cout << character;
+        out.put(character);
+        in.get(character);
+    }
+}
+```
+```cpp
+#include <iostream.h>
+#include <fstream.h>
+   
+int main()
+{
+    char character;
+    int number = 51;
+    int     count = 0;
+    ofstream out_stream;
+    ifstream in_stream1;   /* Stream for counting integers. */
+    ifstream in_stream2;   /* Stream for counting characters. */
+    /* Create the file */
+    out_stream.open("Integers");
+    for (count = 1 ; count <= 5 ; count++)
+    out_stream << number++ << ' ';
+    out_stream.close();      
+    /* Count the integers in the file */
+    in_stream1.open("Integers");
+    count = 0;
+    in_stream1 >> number;
+    while (!in_stream1.fail())
+    {
+        count++;
+        in_stream1 >> number;
+    }
+
+    in_stream1.close();
+    cout << "There are " << count << " integers in the file,\n";
+    /* Count the non-blank characters */
+    in_stream2.open("Integers");
+    count = 0;
+    in_stream2 >> character;
+    while (!in_stream2.fail())
+    {
+        count++;
+        in_stream2 >> character;
+    }
+    in_stream2.close();
+    cout << "represented using " << count << " characters.\n";       
+    return 0;
+}
+```
+This program produces the following output:
+
+There are 5 integers in the file, represented using 10 characters.
 
 **Error Handling** Errors can occur when opening a file. A user may not have the required access privileges, or the file you want to read may not exist. `if ( !myfile )        // or: if ( myfile.fail() )`. Another check of the file `if ( myfile.eof() )        // at end-of-file?`
 
