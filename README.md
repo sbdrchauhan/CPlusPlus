@@ -285,7 +285,78 @@ inline int max(int x, int y)
 ```
 
 ## Recursion
-A function that calls itself is said to be *recursive*. It could also have called other function multiple times before it calls the same function again. But recursion function needs a **break** criteria to avoid run it infinitely.
+A function that calls itself is said to be *recursive*. It could also have called other function multiple times before it calls the same function again. But recursion function needs a **break** criteria to avoid run it infinitely. The notion of recursion is clearly related to the notion of *mathematical induction*. In recusion, we need a base to stop our iterations to call the function itself for forever.
+
+Let's see one example of recursive function "print_backward()", which inputs a series of characters from the keyboard, terminated with a full-stop character, and then prints them backwards on the screen.
+```cpp
+#include <iostream>
+
+void print_backward();
+
+int main()
+{
+    print_backwards();
+    cout << "\n";
+
+    return 0;
+}
+
+void print_backward()
+{
+    char character;
+    cout << "Enter a character ('.' to end program): ";
+    cin >> character;
+    if (charachter != '.')
+    {
+        print_backward();
+        cout << character;
+    }
+}
+```
+In general, recursive definitions must always use some sort of branch statement with at least one non-recursive branch, which acts as the base case of the definition. Otherwise, they will "loop forever". Let's see some more examples recursive functions:
+```cpp
+// finding the factorial of the number
+int factorial(int number)
+{
+    if (number < 0)
+    {
+        cout << "\nError - negative argument to factorial\n";
+        exit(1);
+    }
+    else if (number == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return (number * factorial(number-1));
+    }
+}
+
+// function which raises its first argument to the power of its second argument
+float raised_to_power(float number, int power)
+{
+    if (power < 0)
+    {
+        cout << "\nError - can't raise to a negative power\n";
+        exit(1);
+    }
+    else if (power == 0)
+        return (1.0);
+    else
+        return (number * raised_to_power(number, power-1));
+}
+
+// sums the first n elements of an integer array "a[]"
+int sum_of(int a[], int n)
+{
+    if (n == 1)
+        return a[0];
+    else
+        return (a[n-1] + sum_of(a, n-1);
+}
+```
+You might feel overwhelmed by the recursive function program flow, you got the good news then. From purely mechanical point of view, recursion is not absolutely necessary, since any function that can be defined recursively can also be defined iteratively, using either `for, while` loops. So whether a function is defined recursively or iteratively is to some extent a matter of taste.
 
 ## Storage Classes and Namespaces
 `extern string line;` means in another source file this `string line` has to be globally defined; so the new or other source file can use it as an `extern`.
@@ -614,9 +685,6 @@ float average(int list_a[], int length)
     return (total / length);
 }
 ```
-
-
-
 
 ### Library arrays (C++ standard type from standard container)
 This feature allows advance array operations and manipulations (need to learn more for this). Let's just see one example:
