@@ -16,7 +16,12 @@ C++ and OOP (object-oriented programming) feature:
 Object-oriented programming combine data (properties) and functions (capacities). The general workflow of the OOP is you start writing source code `.cc` file in your editor combines with the header file compile it to get the object file, which then combines standard library file and other library files using a linker to finally get the executable file.
 
 C++ is a compiled language. For a program to run, its source text has to be processed by a compiler (changing plain english code to machine language), producting object files, which are combined by a linker yielding an executable program. Any typical C++ program consists of many source code files (*source files*) in the workflow as shown below:
-![image1](https://github.com/sbdrchauhan/CPlusPlus/blob/main/Images/compiler%20and%20linker.PNG)
+![](https://github.com/sbdrchauhan/CPlusPlus/blob/main/Images/compiler%20and%20linker.PNG)
+
+**Advice**
+* Don't panic!
+* You don't have to know every detail of C++ to write good programs
+* Focus on programming techniques, not on language features
 
 Several data types exists; **integers, floating-point numbers, bool, char, etc**.
 
@@ -53,6 +58,19 @@ cout << setprecision(3);  // Precision: 3
         // or: cout.precision(3); // this is also ok
 cout << 12.34;  // outputs: 12.3
 ```
+
+## Container
+A *container* is an object holding a collection of elements, so we call **Vector** a container because it is the type of objects that are containers. We need to **initialize containers** to use it. Two of the ways we can do this elegantly are:
+* Initialize with a list of elements
+* push_back() way of adding a new element at the end of the sequence
+
+## Standard Library
+Every standard-library facility is provided through some standard header. For example:
+```cpp
+#include <string>
+#include <list>
+```
+This makes the standard `string` and `list` available.
 
 ## Reading and Writing Characaters:
 You can use the method get() to read single characters.
