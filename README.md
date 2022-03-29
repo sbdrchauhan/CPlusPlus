@@ -3,7 +3,7 @@ Notes on C++ language collected and compiled from various source.
 ## List of references
 * [A Complete Guide to Programming in C++](https://www.amazon.com/Complete-Guide-Programming-Title-Demand/dp/0763718173)
 * [cpusplus.com](http://www.cplusplus.com/doc/tutorial/)
-* 
+* [The C++ Programming Language - Bjarne](https://www.amazon.com/C-Programming-Language-4th/dp/0321563840)
 
 <hr/>
 
@@ -14,6 +14,9 @@ C++ and OOP (object-oriented programming) feature:
 * polymorphism
 
 Object-oriented programming combine data (properties) and functions (capacities). The general workflow of the OOP is you start writing source code `.cc` file in your editor combines with the header file compile it to get the object file, which then combines standard library file and other library files using a linker to finally get the executable file.
+
+C++ is a compiled language. For a program to run, its source text has to be processed by a compiler (changing plain english code to machine language), producting object files, which are combined by a linker yielding an executable program. Any typical C++ program consists of many source code files (*source files*) in the workflow as shown below:
+
 
 Several data types exists; **integers, floating-point numbers, bool, char, etc**.
 
