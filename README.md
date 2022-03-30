@@ -19,7 +19,20 @@ In addition to above functionallity, C++ also supports templates, exception hand
 
 ### Objects
 This OOP has revolutionized the way the problems are seen today by the programmer. They think any problems in terms of the *objects*. These objects for example a bank account object will have the data - like its balance, account number, account holder name, etc - and also the methods or functions that can perform certain calculations like adding the deposits, withdrawls, and so on - in the same object. This makes the management of the accounts so much easier, now. Any typical program is developed in the following way:
-![image1]()
+![image1](https://github.com/sbdrchauhan/CPlusPlus/blob/main/Images/program%20dev.png)
+
+Let's begin our journey here by just writing down one simple C++ example code:
+```cpp
+#include <iostream>     // including standard library i/o stream
+using namespace std;    // so we don't need std:: everywhere
+
+int main()      // main() function is required
+{
+  cout << "Hello there, enjoy C++" << endl;
+  return 0;
+}
+```
+
 
 
 
