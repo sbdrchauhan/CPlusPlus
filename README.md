@@ -4,8 +4,113 @@ Notes on C++ language collected and compiled from various source.
 * [A Complete Guide to Programming in C++](https://www.amazon.com/Complete-Guide-Programming-Title-Demand/dp/0763718173)
 * [cpusplus.com](http://www.cplusplus.com/doc/tutorial/)
 * [The C++ Programming Language - Bjarne](https://www.amazon.com/C-Programming-Language-4th/dp/0321563840)
+* [A Complete Guide to Programming in C++](https://www.amazon.com/Complete-Guide-Programming-Title-Demand/dp/0763718173)
 
 <hr/>
+
+## Fundamentals and Basics to Begin
+The Object-Oriented Programming (OOP) is the part of the C++ extensions over its C origin. OOP contains a lots of useful ways to build a program. Let's just start out by listing some of the characteristics of OOP, which will be discussed and elaborated at later point:
+* **data abstraction** -> creating of classes to describe objects
+* **data hiding/encapsulation** -> for controlled access to object data
+* **inheritance** -> creating derived classes (including multiple derived class, more later)
+* **polymorphism** -> implementation of instructions that can have varying effects during program execution
+
+In addition to above functionallity, C++ also supports templates, exception handling.
+
+### Objects
+This OOP has revolutionized the way the problems are seen today by the programmer. They think any problems in terms of the *objects*. These objects for example a bank account object will have the data - like its balance, account number, account holder name, etc - and also the methods or functions that can perform certain calculations like adding the deposits, withdrawls, and so on - in the same object. This makes the management of the accounts so much easier, now. Any typical program is developed in the following way:
+![image1]()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Fundamental Types, Constants, and Variables
+
+## Functions
+
+## Classes
+
+## Input and Output Streams
+
+## Operators and Operations for the data types
+
+## Control Flow
+
+## Namespaces
+
+## Pointers and References
+
+## Defining Classes
+
+## Inheritance
+
+## Multiple Inheritance
+
+## Polymorphism
+
+## Arrays
+
+## Arrays and Pointers
+
+## File Input and Output Streams
+
+## Function Overloading
+
+## Dynamic Memory Allocation
+
+## Exception Handling
+
+## Templates
+
+## Containers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 C++ and OOP (object-oriented programming) feature:
 * data abstraction
