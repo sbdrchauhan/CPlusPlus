@@ -14,6 +14,7 @@ The Object-Oriented Programming (OOP) is the part of the C++ extensions over its
 * **data hiding/encapsulation** -> for controlled access to object data
 * **inheritance** -> creating derived classes (including multiple derived class, more later)
 * **polymorphism** -> implementation of instructions that can have varying effects during program execution
+* Virtual functions, reference variables, Standard Template Library
 
 In addition to above functionallity, C++ also supports templates, exception handling.
 
@@ -23,8 +24,8 @@ This OOP has revolutionized the way the problems are seen today by the programme
 
 Let's begin our journey here by just writing down one simple C++ example code:
 ```cpp
-#include <iostream>     // including standard library i/o stream
-using namespace std;    // so we don't need std:: everywhere
+#include <iostream>     // including standard library i/o stream, PREPROCESSOR directive
+using namespace std;    // so we don't need std:: everywhere, make definition visible
 
 int main()      // main() function is required
 {
@@ -32,6 +33,31 @@ int main()      // main() function is required
   return 0;
 }
 ```
+>Note: A C++ program should provide a prototype for each function used in the program. like: `double sqrt(double)` will let us use sqrt in the below statements.
+
+sqrt function is in library cmath so use it, first by including the file (where all the definitions will be there) and later using in the programs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
