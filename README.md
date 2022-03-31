@@ -35,7 +35,37 @@ int main()      // main() function is required
 ```
 >Note: A C++ program should provide a prototype for each function used in the program. like: `double sqrt(double)` will let us use sqrt in the below statements.
 
-sqrt function is in library cmath so use it, first by including the file (where all the definitions will be there) and later using in the programs.
+`sqrt` function is in library `cmath` so use it, first by including the file (where all the definitions will be there) and later using in the programs.
+
+
+
+
+
+
+
+## Fundamental Data Types, Constants, and Variables
+OOP let's you design your own data types, and that's really helpful. To build your own data types, first you need to know the available building blocks of the data types in C++. Types can be categorized into two further types: **fundamental** and **compound** types. Fundamental has `int` and `float` but with all sorts of its variants. And, compound has the `arrays, strings, pointers, structures` and so on. We should also really know how C++ converts one type to another.
+```cpp
+// simple variable declare first and initialized later
+int braincount;
+braincount = 5;
+```
+*Integers* are numbers with no fractional part, such as 2, 98, -532, and 0. Some languages offers just one type of integer (one type fits all!), but C++ provides several choices. The difference: they have different memory size. So in order of increasing size `char, short, int, long, long long` each with *signed* and *unsigned* versions. So, that gives you total of 10 different types of integers alone! `char` is basically used to represent the characters instead of numbers. To know the size of the types you can use `sizeof(int)` for example to know the memory `int` takes in your system.
+
+*Initialization* means declaring and assigning the values at the same time.
+```cpp
+int uncles = 5; // 5
+int aunts = uncles; // 5
+int chairs = uncles + aunts + 4;  // 14
+
+int owls = 101; // traditional C initializations
+int pigs(10);   // alternative C++ syntax, set pigs to 10
+```
+>NOTE: If you don’t initialize a variable that is defined inside a function, the variable’s value is
+indeterminate. That means the value is whatever happened to be sitting at that memory
+location prior to the creation of the variable.
+
+So, if you know what the initial value should be, by all means initialize it.
 
 
 
@@ -44,54 +74,6 @@ sqrt function is in library cmath so use it, first by including the file (where 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Fundamental Types, Constants, and Variables
 
 ## Functions
 
