@@ -43,7 +43,7 @@ int main()      // main() function is required
 
 
 
-## Fundamental Data Types, Constants, and Variables
+## Fundamental Data Types, Constants, and Variables, arrays,
 OOP let's you design your own data types, and that's really helpful. To build your own data types, first you need to know the available building blocks of the data types in C++. Types can be categorized into two further types: **fundamental** and **compound** types. Fundamental has `int` and `float` but with all sorts of its variants. And, compound has the `arrays, strings, pointers, structures` and so on. We should also really know how C++ converts one type to another.
 ```cpp
 // simple variable declare first and initialized later
@@ -65,7 +65,101 @@ int pigs(10);   // alternative C++ syntax, set pigs to 10
 indeterminate. That means the value is whatever happened to be sitting at that memory
 location prior to the creation of the variable.
 
-So, if you know what the initial value should be, by all means initialize it.
+So, if you know what the initial value should be, by all means, initialize it. The unsigned type means it can't have negative values, thus allowing more widths of memory to store larger numbers as compared to the signed version, because the first place is occupied by the sign. Out of this many types which should you use for your purpose? The **bool** type can be either `true` or `false`. The **const** is used if it needs to be used in several places and you can simply change its value in one place, if needed.
+```cpp
+const int MONTHS = 12; // MONTHS is symbolic constant for 12
+```
+After this, compiler won't let you change the value of MONTHS.
+
+**floating-point numbers** lets you represent numbers with fractional parts. Some of the arithmetic operations that can be performed are: `+, -, *, /, %`. For the precedence order, always use brackets that needs first priority and so on. The modulus operator `%` returns the remainder of an integer division.
+```cpp
+1%2 // returns remainder 1
+5%10 // returns 5
+4%2  // returns 0
+```
+**Type Casts** allows you to force type conversions explicitly via the type cast mechanisms. The type cast comes in two forms.
+```cpp
+int a;
+
+(long) a  // returns a type long conversion of a; C style
+long(a)  // same thing; C++ style
+
+static_cast<typeName> (value) // to convert from one numeric type to another.
+```
+`auto` helps to self assign the types like `auto n = 100;` where `n` now becomes `int`; `auto y = 1.5; // y becomes float or double`. `auto` however is not intended to use in such a simple cases; only when the situation demands. Like in the complicated situations as those in the STL (standard template library).
+```cpp
+// old C++98
+std::vector<double> scores;
+std::vector<double>::iterator pv = scores.begin();
+
+// new C++11 allows
+std::vector<double> scores;
+auto pv = scores.begin();
+```
+more on this later.
+
+
+### Compound types
+
+**Arrays** are a data type that hold several values of same type in the sequential memory address. `short months[12]; // creates array of 12 short`. `float loans[20]; // array of float`. To access values `loans[0]; // see what's in 0th index`
+```cpp
+int yams[3]; // create array with three elements of int
+yams[0] = 7; // assign value to the first element
+yams[1] = 8;
+yams[2] = 6;
+
+// or declare and initialize same time
+int yamcosts[3] = {20, 30, 5};  // sometime some compiler won't work instead use
+                                // static int yamcosts[3] = {20, 30, 5};
+                                
+float hotelTips[5] = {5.0, 2.5};  // rest will be zero automatically
+long totals[500] = {0};   // by samme token as above, rest will be all zero automatically
+
+short things[] = {1, 5, 2, 4}; // things size will be 4 as there are 4 elements
+int num_elements = sizeof(things) / sizeof(short); // to find out the elements in things
+```
+
+**Strings** are a series of characters stored in consecutive memory locations. C-style string is normally used, there is also an alternative method based on a `string` class library.
+```cpp
+char dog[5] = {'h', 'e', 'l', 'l', 'o'}; // not a string as there is not ending with null character \0
+char cat[5] = {'h', 'e', 'l', 'l', '\0'}; // ok, C string ends with null character
+// C strings are the array of char
+
+// easier approach, just use quoted string, called string constant or string literal
+char bird[11] = "Mr. Cheeps"; // \0 is understood
+char fish[] = "Bubbles"; // \0 is understood, and let the compiler count elements number
+```
+`cin` istream class function only takes word for the input string, to get the line we need to use `getline()` or `get()` methods of `istream` class, which is already included in `iostream` header files. `getline()` reads until it sees newline character or Enter key from the keyboard. To invoke this method you do `cin.getline(name, 20)` as a function call, this reads entire line into the `name` array, provided that the line consists of 19 or fewer characters. To read beyond the end of the line, we need other techniques for that.
+
+
+**standard string class** much simpler version than above discussed C-arrays. `#include <string>` makes string class available to you. copying and adding strings using standard library strings are so much simpler and easier to use.
+```cpp
+string str1;
+string str2 = "hello";
+
+str1 = str2;  // to copy str2 to str1
+strcpy();  // method needed to copy in C-style
+
+str1 += "baby"; // to concatenate 
+strcat();  // mehtod in C-style
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
