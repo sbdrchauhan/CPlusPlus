@@ -143,6 +143,92 @@ strcpy();  // method needed to copy in C-style
 str1 += "baby"; // to concatenate 
 strcat();  // mehtod in C-style
 ```
+### Structures
+Small-version of `class`. Suppose you want to store basketball player's info. like name, salary, height, scoring average, etc. So we need a data form that can hold all these different types of data in one unit. Arrays won't work because arrays can hold only of one type data. `struct` is more versatile data form that can store different type of data in one unit. So this unit can keep track of single player, if you need to track whole team, then you could maintain the array of such `struct`.
+```cpp
+struct inflatable   // structure declaration
+{
+  char name[20];
+  float volume;
+  double price;
+};
+```
+Now, I can make an object of type inflatable that holds char, float, double data types.
+```cpp
+inflatable hat;
+inflatable woopie_cushion;
+inflatable mainframe;
+```
+Then, you can use the . dot operator to access individual members `hat.volume` and so on.
+
+Let's make one complete program using `struct` types:
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct inflatable
+{
+    string name;
+    float volume;
+    double price;
+};
+
+int main()
+{
+    inflatable guest;
+
+    guest.name = "Glorious Gloria";
+    guest.volume = 1.88;
+    guest.price = 29.99;
+
+    cout << "name: " << guest.name;
+
+
+    return 0;
+}
+```
+We could also make an array of struct like `inflatable guests[5];` this will create 5 inflatable types and we could use with it in similar manners as above like `inflatable guests[0].name; // to access name of 1st guest`.
+
+### Enumerations
+It provides an alternative to `const` for creating symbolic constants, but this is more restrictive than struct.
+```cpp
+enum spectrum
+{
+  red, organe, yellow, green, blue, violet, indigo, ultraviolet
+};
+```
+- It makes `spectrum` the name of new type
+- It establishes `red, orange, yellow,` and so on, as symbolic constants for the integer values 0-7. These constants are called *enumerators*.
+
+### Pointers and Free store
+Object-oriented programming differs from traditional procedural programming in that OOP emphasizes making decisions during runtime instead of during compile time. Runtime means while a program is running, and compile time means when the compiler is putting a program together. A runtime decision is like, when on vacation, choosing what sights to see depending on the weather and your mood at the moment, whereas a compile-time decision is more like adhering to a preset schedule, regardless of the conditions. Runtime decisions provide more flexibility to adjust to the current circumstances.
+Runtime decisions provide the flexibility to adjust to current circumstances. For example,
+consider allocating memory for an array. The traditional way is to declare an array. To
+declare an array in C++, you have to commit yourself to a particular array size. Thus, the
+array size is set when the program is compiled; it is a compile-time decision. Perhaps you
+think an array of 20 elements is sufficient 80% of the time but that occasionally the program
+will need to handle 200 elements. To be safe, you use an array with 200 elements.
+This results in your program wasting memory most of the time it’s used. OOP tries to make
+a program more flexible by delaying such decisions until runtime. That way, after the program
+is running, you can tell it you need only 20 elements one time or that you need 205
+elements another time. You will soon see how this is done, basically it involves `new` to request the correct amount of memory and using pointers to keep track of where the newly allocated memory is found.
+```cpp
+int a = 12;
+int *p_a; // pointer of int
+p_a = &a; // giving the address
+*p_a = 10; // chaning the a value
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
