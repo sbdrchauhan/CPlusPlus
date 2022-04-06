@@ -39,8 +39,10 @@ int main()      // main() function is required
 
 
 
-
-
+<!-- This is the beginning of the second chapter 
+      ================================================
+      =================================================
+-->
 
 
 ## Fundamental Data Types, Constants, and Variables, arrays,
@@ -219,38 +221,91 @@ int *p_a; // pointer of int
 p_a = &a; // giving the address
 *p_a = 10; // chaning the a value
 ```
+### Allocating Memory with `new`
+`int *pn = new int` Here the `new int` part tells the program you want some new storage suitable for holding an `int`. The `new` operator uses the type to figure out how many bytes are needed. Then it finds the memory and returns the address. Next, you assign the address to `pn`, which is declared to be of type pointer-to-int. Now `pn` is the address and `*pn` is the value stored there.
 
+Let's see an example:
+```cpp
+#include <iostream>
+using namespace std;
 
+int main()
+{
+    int nights = 1001;  // uses fixed memory location every time
+    int * pt = new int; // allocate space for an int, changes every time
+    *pt = 100;         // store a value there
 
+    cout << "nights value= ";
+    cout << nights << ": location " << &nights << endl;
 
+    cout << "int ";
+    cout << "value = " << *pt << ": location = " << pt << endl;
 
+    delete pt;  // free memory with delete when done
+      // this removes the memory to which pt points; it doesn't remove the pointer pt itself.
+      // this means you can use pt to point to another new allocation
+    return 0;
+}
+```
+#### Using `new` to Create Dynamic Arrays
+If all a program needs a single value, then it might be better to just use the simple variable because it is simpler. More typically, we use `new` to represent the larger chunks of data, such as arrays, string, and structures. Let's see how to create a Dynamic Array with `new`. For example, if you need an array of 10 `ints`, you use this:
+```cpp
+int *psome = new int [10];  // get a block of 10 ints
+// use the psome
+delete [] psome;    // free a dynamic array, [] whole array
 
+// Don't do this
+int *pt = new int;
+short *ps = new short [500];
+delete [] pt;   // undefined 
+delete ps;  // undefined
+```
+#### How to use Dynamic Array
+```cpp
+#include <iostream>
+using namespace std;
 
+int main()
+{
+    double * p3 = new double [3];   // space for 3 doubles
+    p3[0] = 0.2;    // treat p3 like any normal array
+    p3[1] = 0.5;
+    p3[2] = 0.8;
 
+    cout << "p3[1] is " << p3[1] << endl;
 
+    p3 = p3 + 1;    // increment the pointer, can't do for other arrays
+    cout << "Now p3[0] is " << p3[0] << " and ";
+    cout << "p3[1] is " << p3[1] << endl;
 
+    p3 = p3 - 1; // back to original notation
+    delete [] p3;
+    return 0;
+}
+```
+#### Vector
+```cpp
+#include <vector>
+...
+using namespace std;
 
+vector<int> vi; // create a zero-size array of in
+int n;
+cin >> n;
+vector<double> vd(n);   // create an array of n doubles
+```
+#### array
+The vector class has more capabilites than the built-in array type, but this comes at a cost of slightly less efficiency. If all you need is a fixed-size array, it could be advantageous to use built-in type.
+```cpp
+#include <array>
+...
+using namespace std;
 
+array<int, 5> ai;   // create array object of 5 ints
+array<double, 4> ad = {1.2, 2.1, 3.43, 4.3};
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--  This is the End of 2nd Chapters -->
 
 
 
@@ -263,7 +318,84 @@ p_a = &a; // giving the address
 
 ## Operators and Operations for the data types
 
-## Control Flow
+
+
+
+
+
+## Control Flow, Loops, and Relational Expressions
+### Introducing the `for` Loops
+To perform repetitive tasks, we use `for` loop.
+```cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int i;
+    for (i=0; i<5; i++)
+        cout << "C++ knows loops.\n";
+    cout << "C++ know that loop finished its looping!" << endl;
+    
+    return 0;
+}
+```
+We can also use `for` to loop the string letters.
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    cout << "Enter a word: ";
+    string word;
+    cin >> word;
+
+    // display the letters in reverse order
+    for (int i = word.size()-1; i>=0; i--)
+        cout << word[i];
+    cout << "\nBye.\n";
+    
+
+    return 0;
+}
+// let's make little tricky
+#include <iostream>
+#include <string>
+int main()
+{
+using namespace std;
+cout << "Enter a word: ";
+string word;
+cin >> word;
+// physically modify string object
+char temp;
+int i, j;
+for (j = 0, i = word.size() - 1; j < i; --i, ++j)
+{ // start block
+temp = word[i];
+word[i] = word[j];
+word[j] = temp;
+} // end block
+cout << word << "\nDone\n";
+return 0;
+}
+```
+
+### while loop
+
+
+
+
+
+
+
+<!--
+  ================================================
+  End of the COntrol FLow, Loops
+-->
+
 
 ## Namespaces
 
