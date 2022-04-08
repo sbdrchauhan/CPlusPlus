@@ -383,7 +383,14 @@ return 0;
 }
 ```
 
-### while loop
+### The Range-Based `for` Loop
+In C++11, it adds a new form of loop, called the *range-based* for loop.
+```cpp
+double prices[5] = {4.99, 10.99, 6.87, 7.99, 8.49};
+for (double x: prices)
+  cout << x << endl;
+```
+Here `x` behaves as the running variable to access all the elements of the array. If you need to modify the variables of the array, then you need to be able to access its address using & operator as: `for (double &x: prices)`. Another variation is `for (int x: {1,2,3,4,5})`
 
 
 
@@ -391,15 +398,11 @@ return 0;
 
 
 
-<!--
-  ================================================
-  End of the COntrol FLow, Loops
--->
 
 
 ## Namespaces
+## Pointers and References 
 
-## Pointers and References
 
 ## Defining Classes
 
@@ -414,6 +417,17 @@ return 0;
 ## Arrays and Pointers
 
 ## File Input and Output Streams
+
+Many times we want to open the file. But what happens if the file is corrputed or not even existing. Then, it is always better to check if the file has opened correctly. Remember: `ofstream outfile` here ofstream is used to open a file that is now ready to be written on. This is our output file. And, `ifstream inFile` is for opening a file that we want to read.
+```cpp
+#include <fstream>
+
+ifstream inFile;
+inFile.open("bowling.txt");
+if (!inFile.is_open())
+  exit (EXIT_FAILURE)
+```
+Here `is_open()` will be true if opened propeerly. So if it fails, it will give 0 and !0 becomes true and hence the if statement is executed resulting in the exitting of the program due to file not open properly.
 
 ## Function Overloading
 
