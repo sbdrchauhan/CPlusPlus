@@ -311,6 +311,40 @@ array<double, 4> ad = {1.2, 2.1, 3.43, 4.3};
 
 
 ## Functions
+Most of the time, we pass the arguments to the function as a value, this means we work with the copy of the data provided in the argument rather than working exactly with the data itself. This method is fine for some cases but you will also need to work with the data directly which will be working with the passing the arguments with the reference.
+
+In other scenarios, functions can even pass **arrays** as the arguments. Let's see how we can define the function header
+```cpp
+int sum_arr(int arr[], int n) {} // arr = array name, n = size
+```
+The above method is more modular, because we used the second parameter n to denote the size of the array, and so we can apply this function to sum all the size of the array and not just some particular ones. The `[]` brackets is there to tell compiler that `arr` is an array not really it is a pointer! but treat it as a usual array, and empty bracket meaning that you can use here, any size array. Let's see a simple use of this array concept:
+```cpp
+#include <iostream>
+using namespace std;
+
+const int ArrSize = 8;
+int sum_arr(const int arr[], int n); // const makes sure we won't change this array values
+
+int main()
+{
+    int cookies[ArrSize] = {1,2,4,8,16,32,64,128};
+
+    int sum = sum_arr(cookies, ArrSize);
+    cout << "Total cookies eaten: " << sum << endl;
+
+    return 0;
+}
+
+int sum_arr(const int arr[], int n)
+{
+    int total = 0;
+    for (int i=0; i<n; i++)
+        total += arr[i];
+    return total;
+}
+```
+Passing an array as an argument is really you are passing the pointer of the array. This is good for two reasons: 1) you don't have to copy the long large size array to just perform the operations on it and it saves lots of time. 2) Is faster speed to work with the original arrays without having to copy it in the first place.
+
 
 ## Classes
 
