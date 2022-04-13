@@ -345,6 +345,22 @@ int sum_arr(const int arr[], int n)
 ```
 Passing an array as an argument is really you are passing the pointer of the array. This is good for two reasons: 1) you don't have to copy the long large size array to just perform the operations on it and it saves lots of time. 2) Is faster speed to work with the original arrays without having to copy it in the first place.
 
+### Inline Functions:
+In the normal way of making the function, the compiler have to jump back and forth to the function memory address whenever we make call to the funciton and after the function has terminated. This is causing some delay, obviously. But, inline functions do come with their own sets of limitations.
+
+Let's see one inline function definitions:
+```cpp
+inline double square(double x) { return x*x;}
+// call as usual: cout << square(5.0) << endl;;
+```
+
+### Reference Variable as the function argument
+Reference is an alias to the variable already created, but its main use comes when we need to work with the original data during the function calls and not have to work with its copy (this is actually redundant if we copy).
+```cpp
+int rats;
+int & rodents = rats; // makes rodents an alias for rats
+```
+
 
 ## Classes
 
