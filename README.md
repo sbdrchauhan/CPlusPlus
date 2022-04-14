@@ -397,22 +397,22 @@ class Stock
     long shares;
     double share_val;
     double total_val;
-    void set_tot() { total_val = shares * share_val; } // notice why
+    void set_tot() { total_val = shares * share_val; } // notice why we put this here
     
     
   public:
     // constructor prototype
-    Stock(const std::string & co, long n=0; double pr = 0.0);
     Stock(); // default constructor (needs explicit initializations)
+    Stock(const std::string & co, long n=0; double pr = 0.0);
     
     // destructor prototype
     ~Stock();
     
-    void acquire(const std::string & co, long n, double pr);
     void buy(long num, double price);
     void sell(long num, double price);
     void update(double price);
-    void show();  
+    void show() const;  // promises not to change invoking object
+    const Stock & topval(const Stock & s) const; // to compare same type objects
 };
 #endif
 ```
@@ -452,21 +452,6 @@ Stock::Stock()
 Stock::~Stock()
 {
   // do nothing;
-}
-
-void Stock::acquire(const std::string & co, long n, double pr)
-{
-  company = co;
-  if (n<0)
-  {
-    std::cout << "Number of shares can't be negative; "
-              << company << " shares set to 0.\n";
-    shares = 0;
-  }
-  else
-    shares = n;
-  share_val = pr;
-  set_tot();  // see how we can easily call this helper function from with class
 }
 
 void Stock::buy(long num, double price)
@@ -511,17 +496,41 @@ void Stock::update(double price)
   set_total();
 }
 
-void Stock::show()
+void Stock::show() const  // promises not to change invoking object
 {
   std::cout << "Company: " << company
             << " Shares: " << shares << '\n'
             << " Share Price: $" << share_val
             << " Total Worth: $" << total_val << '\n';
 }
+
+const Stock & Stock::topval(const Stock & s) const
+{
+  if (s.total_val > total_val)
+    return s;
+  else
+    return *this; // this pointer refers to the implicit object address
+}
 ```
+### An Array of Objects
+You can also define an array to objects of the class like `Stock mystuff[4];` should create you four Stock objects. Now you can work as `mystuff[0].update` applies update() method to 1st element and so on.
 
+### Operator Overloading
+It is a type of polymorphism, remember we can have the same function name for several functions and slightly change the return types or the types and numbers of the arguments used. Now we doing the same thing but for the operators. We already know this like * multiplication works with int and int, double and double, int and double, etc. right?
 
+Let's look into the syntax to overload any operator. Here, *op* is the symbol for the operator being overloaded:
+```cpp
+operatorop(agrument-list) // there is no space between symbol and operator
+```
+Ex- `operator+()` overloads the + operator and `operator*()` overloads the * operator.
 
+### class Friends
+Sometimes we need to allow using our private data members by outsiders, friends. Friends come in three varieties:
+* Friend functions
+* Friend classes
+* Friend member functions
+
+So, by making a function a friend to a class, you are allowing the function the same privileges that a member function of that class has.
 
 
 
