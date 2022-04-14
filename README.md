@@ -27,6 +27,7 @@ Let's begin our journey here by just writing down one simple C++ example code:
 #include <iostream>     // including standard library i/o stream, PREPROCESSOR directive
 using namespace std;    // so we don't need std:: everywhere, make definition visible
 
+
 int main()      // main() function is required
 {
   cout << "Hello there, enjoy C++" << endl;
