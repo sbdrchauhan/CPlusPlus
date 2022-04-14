@@ -369,8 +369,8 @@ This means now, you can use `rodents` and `*prats` inplace of **rats**; similarl
 References that are passed in the function as the parameter is called *passing by reference*. We can see the following three examples with swap function. Using the passing by reference is the best way to swap the original values.
 ![](https://github.com/sbdrchauhan/CPlusPlus/blob/main/Images/swapFunction.PNG)
 
-
-
+### Default Arguments
+Example if we have a function `void wow(int n=1);` then function call `wow()` is same as `wow(1)`. There is a rule to the way we give default arguments. If you give a parameter default argument, then all the rest of the parameter also needs to have default parameters. And, the default parameters values should be only given in the function prototype and not in the definition.
 
 
 
