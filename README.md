@@ -380,6 +380,168 @@ Example if we have a function `void wow(int n=1);` then function call `wow()` is
 
 
 ## Classes
+Classes is the single most important piece of additinal features added to C++ that will contain most of the OOP features like data hiding, polymorphism, inheritence, and more.
+
+Let's jump into how to **declare** and **define** classes. Typically, people declare in separate header file with .h extension and source file separately. Now, we will see how it works:
+```cpp
+// this is the Stock class header file: stock.h
+#ifndef STOCK_H_
+#define STOCK_H_
+
+#include <string>
+
+class Stock
+{
+  private:
+    std::string company;
+    long shares;
+    double share_val;
+    double total_val;
+    void set_tot() { total_val = shares * share_val; } // notice why
+    
+    
+  public:
+    // constructor prototype
+    Stock(const std::string & co, long n=0; double pr = 0.0);
+    Stock(); // default constructor (needs explicit initializations)
+    
+    // destructor prototype
+    ~Stock();
+    
+    void acquire(const std::string & co, long n, double pr);
+    void buy(long num, double price);
+    void sell(long num, double price);
+    void update(double price);
+    void show();  
+};
+#endif
+```
+Okay, so we declare our Stock class, now we need to define it in yet another separate file. Some feature of the class, while defining the method we need to use scope resolution operator :: so compiler knows that we are trying to define the method that belongs to this particular class. Example, to define update() we do `void Stock::update(){double price}`. Similarly, any function within the class can call another function within that class. We need *constructors* and *destructors* as well. Constructors are the way to create the class object and then automatically initialize all the member data (variables) in that class. *Default constructors* are those that don't require the parameters, it works since we initialize the data members explicitly here. It is a good practice to provide a default constructor that implicitly initializes all class members. The calling decision of the destructor is handled by the compiler, and normally you shouldn't explicitly call the destructor.
+
+Let's now define the class:
+```cpp
+// this is stock.cpp file
+#include <iostream>
+#include "stock.h"    // header file needed to get the prototypes
+
+// constructor definition
+Stock::Stock(std::string & co, long n, double pr)
+{
+  company = co;
+  if (n<0)
+  {
+    std::cerr << "Number of shares can't be negative; "
+              << company << " shares set to 0.\n";
+  }
+  else
+    shares = n;
+  share_val = pr;
+  set_total();
+}
+
+// default constructor
+Stock::Stock()
+{
+  company = "no name";
+  shares = 0;
+  share_val = 0.0;
+  total_val = 0.0;
+}
+
+// destructor to free memory
+Stock::~Stock()
+{
+  // do nothing;
+}
+
+void Stock::acquire(const std::string & co, long n, double pr)
+{
+  company = co;
+  if (n<0)
+  {
+    std::cout << "Number of shares can't be negative; "
+              << company << " shares set to 0.\n";
+    shares = 0;
+  }
+  else
+    shares = n;
+  share_val = pr;
+  set_tot();  // see how we can easily call this helper function from with class
+}
+
+void Stock::buy(long num, double price)
+{
+  if (num < 0)
+  {
+    std::cout << "Number or shares purchased can't be negative. "
+              << "Transaction is aborted.\n";
+   }
+   else
+   {
+    shares += num;
+    share_val = price;
+    set_total();
+   }
+}
+
+void Stock::sell(long num, double price)
+{
+  using std::cout;
+  if (num < 0 )
+  {
+    cout << "Number of shares sold can't be negative. "
+          << "Transaction is aborted.\n";
+  }
+  else if (num > shares)
+  {
+    cout << "You can't sell more than you have! "
+          << "Transaction is aborted.\n";
+  }
+  else
+  {
+    shares -= num;
+    share_val = price;
+    set_total();
+  }
+}
+
+void Stock::update(double price)
+{
+  share_val = price;
+  set_total();
+}
+
+void Stock::show()
+{
+  std::cout << "Company: " << company
+            << " Shares: " << shares << '\n'
+            << " Share Price: $" << share_val
+            << " Total Worth: $" << total_val << '\n';
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Input and Output Streams
 
