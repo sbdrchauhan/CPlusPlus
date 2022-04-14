@@ -359,7 +359,23 @@ Reference is an alias to the variable already created, but its main use comes wh
 ```cpp
 int rats;
 int & rodents = rats; // makes rodents an alias for rats
+                    // rodents is a refernce
+int *prats = &rats;    // prats a pointer
 ```
+This means now, you can use `rodents` and `*prats` inplace of **rats**; similarly, you can use `&rodents` and `prats` in place of `&rats`.
+
+>NOTE: You should initialize a reference variable when you declare it.
+
+References that are passed in the function as the parameter is called *passing by reference*. We can see the following three examples with swap function. Using the passing by reference is the best way to swap the original values.
+![](https://github.com/sbdrchauhan/CPlusPlus/blob/main/Images/swapFunction.PNG)
+
+
+
+
+
+
+
+
 
 
 ## Classes
