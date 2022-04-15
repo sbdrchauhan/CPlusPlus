@@ -532,6 +532,10 @@ Sometimes we need to allow using our private data members by outsiders, friends.
 
 So, by making a function a friend to a class, you are allowing the function the same privileges that a member function of that class has.
 
+### Class Inheritance
+It means we can inherit methods from the old, already tested class that worked before called *base class*; and build our new class that would inherit as well as contains newer features and possibilities. The class that inherits from the base class is called *derived class*.
+
+
 
 
 
