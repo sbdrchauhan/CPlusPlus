@@ -758,13 +758,25 @@ A *container* is an object holding a collection of elements, so we call **Vector
 * Initialize with a list of elements
 * push_back() way of adding a new element at the end of the sequence
 
-## Standard Library
+## The Standard Library
 Every standard-library facility is provided through some standard header. For example:
 ```cpp
 #include <string>
 #include <list>
 ```
-This makes the standard `string` and `list` available.
+This makes the standard `string` and `list` available. Various important concepts that comes into the standard library are:
+- STL Containers
+- STL Algorithms
+- STL Iterators
+- Utilities
+- Strings
+- Regular Expressions
+- I/O Streams, etc.
+
+Try not to reinvet the wheel. STL container holds a sequence of objects.
+
+
+
 
 ## Reading and Writing Characaters:
 You can use the method get() to read single characters.
