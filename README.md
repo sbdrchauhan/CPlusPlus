@@ -73,6 +73,30 @@ double read_and_sum(int s)
 
 >The problem with `struct` is however, we can not define the methods (functions) within the struct scope that can do operations to the data of the struct. We have to define outside struct our functions to do operations of the data, which is not a handy way to manage class and data types. This is where class types comes into the play, NEXT.
 
+### Classes
+The tighter connection between the data and the methods is found using the class types Let's see how we could have used the same concept but using **class** concepts.
+```cpp
+class Vector
+{
+  public:
+    Vector(int s):elem{new double[s]}, sz(s){} // construct a Vector
+    double &operator[](int i){return elem[i];} // element access:subscripting
+    int size(){return sz;}
+    
+  private:
+    double *elem; // a pointer to the elements
+    int sz;     // number of elements
+};
+```
+
+### Enumerations
+In addition to struct and class, we also have this.
+
+## Error Handling
+This is large and complex topic. 
+
+
+
 
 
 
