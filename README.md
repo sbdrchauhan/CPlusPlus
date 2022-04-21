@@ -8,7 +8,7 @@ Notes on C++ language collected and compiled from various source.
 
 <hr/>
 
-## Fundamentals and Basics to Begin
+# Fundamentals and Basics to Begin
 C++ is a compiled language. This means we write our source codes (multiples of source codes including header files, often) in our preferred editor, compile it with the compiler to get the object files (each .O file for each source code file); these object files finally is linked together with the linker to finally yield an executable file. See the figure below:
 
 ![image](https://github.com/sbdrchauhan/CPlusPlus/blob/main/Images/compiler%20and%20linker.PNG)
@@ -18,9 +18,58 @@ What is created as an executable file is not protable; only portable thing here 
 The operator `<<` (put to) in `std::cout << "Hello, World\n";` writes its second argument onto its first. In this case, the string literal **"Hello, World\n"** is written onto the standard output stream **std::cout**. A string literal is a sequence of characters surrounded by double quotes. The **std::** specifies that the name **cout** is to be found in the standard-library namespace.
 
 ## Types, Variables, and Arithmetics
-Because C++ needs every object to have some type before it can be used, so that the compiler knows what functionality is available to that type of object. E.g. `int inch` specifies that **inch** is of type **int**. A *declaration* is a statement that introduces a name into the program with its type as well. Some of the basic most often seen types of the objects are **bool, char, int, double**. Each type can hold informations more and more depending upon the types used. Like long long double might hold the longest values possbile, but you don't want to overuse the memory if you could have just used int which is much more memory efficient. One very useful function to check how much your system uses memory for certain type is to use `sizeof()`. Ex. `sizeof(int)` and so on.
+Because C++ needs every object to have some type before it can be used, so that the compiler knows what functionality is available to that type of object. E.g. `int inch` specifies that **inch** is of type **int**. A *declaration* is a statement that introduces a name into the program with its type as well. Some of the basic most often seen types of the objects are **bool, char, int, double**. Each type can hold informations more and more depending upon the types used. Like long long double might hold the longest values possbile, but you don't want to overuse the memory if you could have just used int which is much more memory efficient. One very useful function to check how much your system uses memory for certain type is to use `sizeof()`. Ex. `sizeof(int)` and so on. Some of the arithmetic we can do are: `+, -, ++, --, /, *, %, ==, !=, <, <=, >, >=`.  A constant type cannot be left uninitialized, and in most cases any variable should be initialized almost all the time during its declaration or immediately after declaration. **Don't introduce a name until you have a suitable value for it**.
 
+### Constants
+Two types of notions are there for constants:
+* **const**: meaning roughly "I promise not to change this value", we use this interface mostly when we use pass the object to the function and we don't want the function to modify the object that is passed into it as the parameter. The compiler enforces the promise made by **const**.
+* constexpr
 
+The operator **<<** ("put to") and the **>>** (get from) is used for input **cin**.
+
+### Pointers, Arrays, and Loops
+An array of elements of type **char** can be declared like: `char v[6]; // array of 6 characters`. Similarly, pointer can be declared as: `char *p; // pointer to a character`. A pointer variable can hold the address of an object of tha appropriate type:
+```cpp
+char v[6];
+char *p;
+char *p = &v[3];   // p points to v's fourth element
+char x = *p;      // de-referncing p to obtain the value
+```
+
+## User-Defined types
+The types that can be made out of the available built-in types of C++.
+
+### Structures
+The first step in building a new type is often to organize the elements it needs into a data structure, a `struct`:
+```cpp
+struct Vector
+{
+  int sz;           // number of elements
+  double *elem;     // pointer to an element of type double
+};
+Vector v;     // we can now define our type (Vector) of object (v)
+void vector_init(Vector &v, int s)
+{
+  v.elem = new double[s];
+  v.sz = s;
+}
+
+// simple use of Vector
+double read_and_sum(int s)
+{
+  Vector v;
+  vector_init(s); // allocates s elements for v
+  for (int i=0; i!=s; ++i)
+    cin >> v.elem[i]; // read into elements
+  
+  double sum = 0;
+  for (int i=0; i!=s; ++i)
+    sum += v.elem[i]
+    
+  return sum;
+}
+```
+`new` operator allocates memory from an area called *free store* (also known as *dynamic memory* and *heap*). The parameter is passed as the `Vector&` meaning the original object is passed and so we are able to modify that object. There is a long way before our basic Vector is comparable to library built-in Vector. But we don't want to create class that has already been developed and tested for us. NO NO. 
 
 
 
