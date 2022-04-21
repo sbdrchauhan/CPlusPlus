@@ -69,7 +69,9 @@ double read_and_sum(int s)
   return sum;
 }
 ```
-`new` operator allocates memory from an area called *free store* (also known as *dynamic memory* and *heap*). The parameter is passed as the `Vector&` meaning the original object is passed and so we are able to modify that object. There is a long way before our basic Vector is comparable to library built-in Vector. But we don't want to create class that has already been developed and tested for us. NO NO. 
+`new` operator allocates memory from an area called *free store* (also known as *dynamic memory* and *heap*). The parameter is passed as the `Vector&` meaning the original object is passed and so we are able to modify that object. There is a long way before our basic Vector is comparable to library built-in Vector. But we don't want to create class that has already been developed and tested for us. NO NO.
+
+>The problem with `struct` is however, we can not define the methods (functions) within the struct scope that can do operations to the data of the struct. We have to define outside struct our functions to do operations of the data, which is not a handy way to manage class and data types. This is where class types comes into the play, NEXT.
 
 
 
