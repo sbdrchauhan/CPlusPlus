@@ -9,6 +9,44 @@ Notes on C++ language collected and compiled from various source.
 <hr/>
 
 ## Fundamentals and Basics to Begin
+C++ is a compiled language. This means we write our source codes (multiples of source codes including header files, often) in our preferred editor, compile it with the compiler to get the object files (each .O file for each source code file); these object files finally is linked together with the linker to finally yield an executable file. See the figure below:
+
+![image](https://github.com/sbdrchauhan/CPlusPlus/blob/main/Images/compiler%20and%20linker.PNG)
+
+What is created as an executable file is not protable; only portable thing here is source codes and then compile in the system where you want to run your program.
+
+The operator `<<` (put to) in `std::cout << "Hello, World\n";` writes its second argument onto its first. In this case, the string literal **"Hello, World\n"** is written onto the standard output stream **std::cout**. A string literal is a sequence of characters surrounded by double quotes. The **std::** specifies that the name **cout** is to be found in the standard-library namespace.
+
+## Types, Variables, and Arithmetics
+Because C++ needs every object to have some type before it can be used, so that the compiler knows what functionality is available to that type of object. E.g. `int inch` specifies that **inch** is of type **int**. A *declaration* is a statement that introduces a name into the program with its type as well. Some of the basic most often seen types of the objects are **bool, char, int, double**. Each type can hold informations more and more depending upon the types used. Like long long double might hold the longest values possbile, but you don't want to overuse the memory if you could have just used int which is much more memory efficient. One very useful function to check how much your system uses memory for certain type is to use `sizeof()`. Ex. `sizeof(int)` and so on.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 The Object-Oriented Programming (OOP) is the part of the C++ extensions over its C origin. OOP contains a lots of useful ways to build a program. Let's just start out by listing some of the characteristics of OOP, which will be discussed and elaborated at later point:
 * **data abstraction** -> creating of classes to describe objects
 * **data hiding/encapsulation** -> for controlled access to object data
