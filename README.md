@@ -13,4 +13,4 @@ C++ most common types that can be used to hold the data are:
 
 `char ch='a';` hold a character of the implementation's character set.
 
-### Integer Types
+**Integer Types** Integer comes in three forms: "plain" int, signed int, and unsigned int. In addition, integers comes in four sizes: short int, "plain" int, long int, long long int. 
